@@ -1,0 +1,103 @@
+body {
+    background-image: url('WhatsApp\ Image\ 2023-01-27\ at\ 5.21.00\ PM.jpeg');
+    background-repeat: no-repeat;
+    background-size: cover;
+	font-size: larger;
+	font-weight: 900;
+}
+
+.loginPage {
+	
+	text-align: center;
+	
+		
+	width: -webkit-fill-available;
+	
+}
+
+/* Styling Input Elements */
+input[type=text] {
+	padding:10px;
+  	margin:10px 0;
+	border-radius:10px;
+	-moz-box-shadow:inset 2px 2px 5px #888;
+    box-shadow:inset 2px 2px 5px #888;
+	border: 1px solid #b8b8b8;
+	
+	  
+}
+
+input[type=password] {
+	padding:10px;
+  	margin:10px 0; 
+	border-radius:10px;
+	-moz-box-shadow:inset 2px 2px 5px #888;
+    box-shadow:inset 2px 2px 5px #888;
+	border: 1px solid #b8b8b8;
+	
+}
+
+/* Styling Button */
+
+button {
+	display: inline-block;
+	background-color: #1c6bab;
+	border-radius: 10px;
+	border: 4px double #cccccc;
+	color: #ffffff;
+	text-align: center;
+	font-size: 20px;
+	padding: 10px;
+	width: 200px;
+	transition: all 0.5s;
+	cursor: pointer;
+	margin: 5px;
+  }
+  button span {
+	cursor: pointer;
+	display: inline-block;
+	position: relative;
+	transition: 0.5s;
+  }
+  button span:after {
+	content: '\00bb';
+	position: absolute;
+	opacity: 0;
+	top: 0;
+	right: -20px;
+	transition: 0.5s;
+  }
+  button:hover {
+	background-color: #28ac79;
+  }
+  button:hover span {
+	padding-right: 25px;
+  }
+  button:hover span:after {
+	opacity: 1;
+	right: 0;
+  }
+
+
+/* Styling Link */
+a:link, a:visited {
+    display: inline-block;
+	background-color: #fc9804;
+	border-radius: 10px;
+	border: 4px double #cccccc;
+	color: #520e0e;
+	text-align: center;
+	font-size: 20px;
+	padding: 10px;
+	width: 300px;
+	transition: all 0.5s;
+	cursor: pointer;
+	margin: 1px;
+}
+
+a:hover, a:active {
+  background-color: green;
+  color: white;
+}
+
+
