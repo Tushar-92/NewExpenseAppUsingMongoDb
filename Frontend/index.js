@@ -199,7 +199,7 @@ async function download() {
     
     try {
         if(response.status === 200){
-            //the bcakend is essentially sending a download link to which if we open in browser, the file would download
+            //the backend is essentially sending a download link to which if we open in browser, the file would download
             let a = document.createElement("a");
             a.href = response.data.fileURL;
             a.download = 'myexpense.csv'; //i.e it will download with the name of this 

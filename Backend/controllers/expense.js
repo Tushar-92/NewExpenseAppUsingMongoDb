@@ -75,7 +75,7 @@ function uploadToS3(data , filename) {
     const IAM_USER_KEY = process.env.USER_KEY;
     const IAM_USER_SECRET = process.env.USER_SECRET;
 
-    //lets create new instance of aws s3
+    //lets create new instance of aws s3 bucket 
     let s3bucket = new AWS.S3({
         accessKeyId: IAM_USER_KEY ,
         secretAccessKey: IAM_USER_SECRET
@@ -107,24 +107,29 @@ function uploadToS3(data , filename) {
 async function downloadExpenses(req, res) {
 
     try {
-        //First check wheter the user is Premium user or not as this service is available only for the Premium User.
+
+        //First check whether the user is Premium user or not as this service is available only for the Premium User.
         if(!req.user.ispremiumuser){
             return res.status(401).json({ success: false, message: 'You are not an Premium User'});
-        }
+        } 
 
-        const expenses = await req.user.getExpenses();
-        // console.log(expenses);
+        // Now lets get the expenses saved by this user in this app
+        const expenses = await Expenses.find({usersofexpenseappId: req.user.id})
+        // console.log(expenses); 
         const stringifiedExpenses = JSON.stringify(expenses);
         const userId = req.user.id;
         const filename = `Expense${userId}/${new Date()}.txt`;
         const fileURL = await uploadToS3(stringifiedExpenses , filename);
 
+
         //lets also save this fileURL into our database table named FilesDownloaded, so that user can download his prevoisly downloaded files from old urls
-        const savingUrlToDatabase = await Filesdownloaded.create({
+        const savingUrlToDatabase = new Filesdownloaded ({
             URL: fileURL,
             usersofexpenseappId: req.user.id //or variabled named userId created above can also be used
-        });
-
+        })
+        
+        await savingUrlToDatabase.save();
+        
         res.status(200).json({ fileURL, success: true}); 
             
     } catch (err) {
@@ -138,7 +143,8 @@ async function downloadExpenses(req, res) {
 async function previouslyDownloadedFileURL(req, res) {
 
     try {
-        const result = await Filesdownloaded.findAll( {where: { usersofexpenseappId: req.user.id} });
+        const result = await Filesdownloaded.find({ usersofexpenseappId: req.user.id});
+        // console.log(result);
         res.status(200).json(result);
         
     } catch (err) {
